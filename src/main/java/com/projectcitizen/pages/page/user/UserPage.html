@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+	</head>
+	<body>
+		<wicket:extend>
+			<div id="hd">
+				<form method="get" wicket:id="form">
+					<h3>
+						<wicket:message key="user.page.title">[title]</wicket:message>
+					</h3>
+					<section class="col-lg-6">
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="username">
+								<wicket:message key="user.username.label">[username]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="text" wicket:id="username" />
+						</div>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="password">
+								<wicket:message key="user.password.label">[password]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="password" wicket:id="password" />
+						</div>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="name">
+								<wicket:message key="user.name.label">[name]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="text" wicket:id="name" />
+						</div>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="address">
+								<wicket:message key="user.address.label">[address]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="text" wicket:id="address" />
+						</div>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="email">
+								<wicket:message key="user.email.label">[email]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="email" wicket:id="email" />
+						</div>
+						<div class="col-lg-12">
+							<input type="submit" name="Submit" value="Submit" />
+						</div>
+					</section>
+				</form>
+			</div>
+		</wicket:extend>
+	</body>
+</html>
