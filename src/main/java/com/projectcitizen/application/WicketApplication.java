@@ -33,16 +33,15 @@ public class WicketApplication extends WebApplication {
     public void init() {
         super.init();
 
+        getMarkupSettings().setStripWicketTags(Boolean.TRUE);
         get().getResourceSettings().setPackageResourceGuard(new PackageResourceGuard());
-
         getComponentInstantiationListeners().add(new GuiceComponentInjector(this));
 
         configureBootstrap();
     }
-    
+
     /**
-    /**
-     * configures wicket-bootstrap and installs the settings.
+     * /** configures wicket-bootstrap and installs the settings.
      */
     private void configureBootstrap() {
 
@@ -51,5 +50,4 @@ public class WicketApplication extends WebApplication {
         Bootstrap.install(this, settings);
     }
 }
-
 
