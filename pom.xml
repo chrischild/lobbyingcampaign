@@ -66,6 +66,11 @@
 		    <artifactId>wicket-guice</artifactId>
 		    <version>${wicket.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.wicketstuff</groupId>
+			<artifactId>wicketstuff-annotation</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
 		<!-- WICKET-BOOTSTRAP DEPENDENCIES -->
 		<dependency>
 		    <groupId>de.agilecoders.wicket</groupId>
