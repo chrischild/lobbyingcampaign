@@ -44,7 +44,6 @@ public class BasePage extends WebPage {
 
         Builder builder = new Builder("navigation", getPage(), parameters);
         builder = builder.addMenuItem(Model.of("Home"), HomePage.class, "fa fa-home", false)
-                         .addSubMenuItem(Model.of(""), null, "")
                          .addMenuItem(Model.of("User"), DummyPage.class, "fa fa-user", true)
                          .addSubMenuItem(Model.of("Add User"), UserPage.class, "fa fa-user-plus");
 

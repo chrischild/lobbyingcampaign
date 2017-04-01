@@ -25,5 +25,4 @@ public class SubMenuItem extends MenuItem {
             super(id, subLink, isActive, fontAwesome, linkText);
     }
 
-
 }

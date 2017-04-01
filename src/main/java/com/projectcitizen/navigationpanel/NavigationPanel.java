@@ -56,14 +56,14 @@ public abstract class NavigationPanel extends Panel {
 
             for (MenuLink subLink : link.getSubMenuLink()) {
                 subItemActive = subLink.getLinkPage().equals(builder.activePage.getClass());
-                if(subItemActive) {
+                if (subItemActive) {
                     mainItemActive = true;
                 }
-                SubMenuItem subItem = new SubMenuItem(menuItems.newChildId(), subLink, subItemActive, subLink.getFontAwesome(),
-                    subLink.getLinkText());
+                SubMenuItem subItem = new SubMenuItem(menuItems.newChildId(), subLink, subItemActive,
+                    subLink.getFontAwesome(), subLink.getLinkText());
                 subMenuItems.add(subItem);
             }
-            
+
             menuItem = new MenuItem(menuItems.newChildId(), link, mainItemActive, link.getFontAwesome(),
                 link.getLinkText(), subMenuItems);
 
@@ -98,16 +98,34 @@ public abstract class NavigationPanel extends Panel {
             this.parameters = parameters;
         }
 
-        public Builder addMenuItem(Model<String> linkText, final Class<? extends Page> page, String fontAwesome,
+        /**
+         * 
+         * @param linkText
+         * @param linkPage
+         *            needs to be set to an empty implementation of webpage to accomodate the fact
+         *            that the top menu item might have sub menus
+         * @param fontAwesome
+         * @param hasSubMenu
+         * @return
+         */
+        public Builder addMenuItem(Model<String> linkText, final Class<? extends Page> linkPage, String fontAwesome,
             Boolean hasSubMenu) {
-            MenuLink link = new MenuLink("link", linkText, page, fontAwesome, hasSubMenu, parameters);
+            MenuLink link = new MenuLink("link", linkText, linkPage, fontAwesome, hasSubMenu, parameters);
             links.add(link);
             return this;
         }
 
-        public Builder addSubMenuItem(Model<String> linkText, final Class<? extends Page> page, String fontAwesome) {
-            if (page != null) {
-                MenuLink link = new MenuLink("subLink", linkText, page, fontAwesome, false, parameters);
+        /**
+         * 
+         * @param linkText
+         * @param linkPage
+         * @param fontAwesome
+         * @return
+         */
+        public Builder addSubMenuItem(Model<String> linkText, final Class<? extends Page> linkPage,
+            String fontAwesome) {
+            if (linkPage != null) {
+                MenuLink link = new MenuLink("subLink", linkText, linkPage, fontAwesome, false, parameters);
                 MenuLink menuLink = links.get(links.size() - 1);
                 menuLink.getSubMenuLink().add(link);
             }
