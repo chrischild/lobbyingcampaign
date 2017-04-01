@@ -15,11 +15,13 @@
  */
 package com.projectcitizen.navigationpanel;
 
+import java.util.List;
+
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.Model;
 
 /**
@@ -29,7 +31,7 @@ import org.apache.wicket.model.Model;
 public class MenuItem extends Panel {
     private static final long serialVersionUID = 3512802589536861966L;
 
-    public MenuItem(String id, Link<?> link, boolean isActive, String fontAwesome, Model<String> linkText) {
+    public MenuItem(String id, MenuLink link, boolean isActive, String fontAwesome, Model<String> linkText) {
         super(id);
 
         this.setOutputMarkupId(false);
@@ -44,6 +46,50 @@ public class MenuItem extends Panel {
         link.add(spanMarkup);
 
         add(link);
+
+        if (isActive) {
+            add(new AttributeAppender("class", Model.of("active")));
+        }
+    }
+
+    /**
+     * @param id
+     * @param link
+     * @param isActive
+     * @param fontAwesome
+     * @param linkText
+     * @param subMenuItems
+     */
+    public MenuItem(String id, MenuLink link, boolean isActive, String fontAwesome, Model<String> linkText,
+        List<SubMenuItem> subMenuItems) {
+        super(id);
+
+        this.setOutputMarkupId(false);
+        link.setOutputMarkupId(false);
+
+        WebMarkupContainer iMarkup = new WebMarkupContainer("i");
+        iMarkup.add(new AttributeAppender("class", Model.of(fontAwesome)));
+        link.add(iMarkup);
+
+        WebMarkupContainer spanMarkup = new WebMarkupContainer("span");
+        spanMarkup.add(new Label("linkText", Model.of(linkText)));
+        link.add(spanMarkup);
+
+        add(link);
+        
+
+        RepeatingView subItems = new RepeatingView("subItems");
+        for (SubMenuItem subItem : subMenuItems) {
+            subItems.add(subItem);
+        }
+        
+        WebMarkupContainer ulMarkup = new WebMarkupContainer("ul");
+        if(subItems.size() != 0) {
+            ulMarkup.add(new AttributeAppender("class", Model.of("treeview-menu")));
+        }
+        
+        ulMarkup.add(subItems);
+        add(ulMarkup);
 
         if (isActive) {
             add(new AttributeAppender("class", Model.of("active treeview")));

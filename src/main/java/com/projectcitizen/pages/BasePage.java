@@ -18,6 +18,7 @@ import com.projectcitizen.js.AdminLTEJS;
 import com.projectcitizen.js.SlimScrollJS;
 import com.projectcitizen.navigationpanel.NavigationPanel.Builder;
 import com.projectcitizen.navigationpanel.SideNavigationPanel;
+import com.projectcitizen.pages.page.DummyPage;
 import com.projectcitizen.pages.page.HomePage;
 import com.projectcitizen.pages.page.user.UserPage;
 
@@ -42,8 +43,10 @@ public class BasePage extends WebPage {
         add(new MetaTag("author", Model.of("author"), Model.of("Chris Child")));
 
         Builder builder = new Builder("navigation", getPage(), parameters);
-        builder = builder.addMenuItem("Home", HomePage.class, "fa fa-home")
-                         .addMenuItem("User", UserPage.class, "fa fa-user");
+        builder = builder.addMenuItem(Model.of("Home"), HomePage.class, "fa fa-home", false)
+                         .addSubMenuItem(Model.of(""), null, "")
+                         .addMenuItem(Model.of("User"), DummyPage.class, "fa fa-user", true)
+                         .addSubMenuItem(Model.of("Add User"), UserPage.class, "fa fa-user-plus");
 
         add(new SideNavigationPanel(builder, getPage()));
     }

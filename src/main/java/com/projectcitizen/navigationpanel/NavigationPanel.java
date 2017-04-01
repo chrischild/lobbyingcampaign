@@ -16,18 +16,14 @@
 package com.projectcitizen.navigationpanel;
 
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The baseclass for both navigation forms. The base functionality of creating a list with the
@@ -36,8 +32,10 @@ import org.slf4j.LoggerFactory;
  * @author Chris Child
  */
 public abstract class NavigationPanel extends Panel {
+
     private static final long serialVersionUID = -5568250122412968503L;
-    private static final Logger log = LoggerFactory.getLogger(NavigationPanel.class);
+
+    private List<SubMenuItem> subMenuItems = new ArrayList<SubMenuItem>();
 
     /**
      * Create the navigation list.
@@ -48,17 +46,32 @@ public abstract class NavigationPanel extends Panel {
     public NavigationPanel(Builder builder, Page page) {
 
         super(builder.id);
-        RepeatingView rv = new RepeatingView("menuItems");
+        RepeatingView menuItems = new RepeatingView("menuItems");
+        MenuItem menuItem;
 
-        for (Map.Entry<String, Link<Void>> links : builder.links.entrySet()) {
-            String fontAwesome = links.getKey();
-            Link<Void> link = links.getValue();
-            boolean isActive = false;
-            isActive = builder.pages.get(links.getKey()).equals(builder.activePage.getClass());
+        for (MenuLink link : builder.links) {
+            boolean mainItemActive = link.getLinkPage().equals(builder.activePage.getClass());
+            boolean subItemActive = false;
 
-            rv.add(new MenuItem(rv.newChildId(), link, isActive, fontAwesome, builder.linkText.get(links.getKey())));
+
+            for (MenuLink subLink : link.getSubMenuLink()) {
+                subItemActive = subLink.getLinkPage().equals(builder.activePage.getClass());
+                if(subItemActive) {
+                    mainItemActive = true;
+                }
+                SubMenuItem subItem = new SubMenuItem(menuItems.newChildId(), subLink, subItemActive, subLink.getFontAwesome(),
+                    subLink.getLinkText());
+                subMenuItems.add(subItem);
+            }
+            
+            menuItem = new MenuItem(menuItems.newChildId(), link, mainItemActive, link.getFontAwesome(),
+                link.getLinkText(), subMenuItems);
+
+            menuItems.add(menuItem);
+            subMenuItems.clear();
+
         }
-        add(rv);
+        add(menuItems);
     }
 
     public static class Builder implements Serializable {
@@ -67,9 +80,7 @@ public abstract class NavigationPanel extends Panel {
         protected String id;
         private Page activePage;
         private PageParameters parameters;
-        private Map<String, Link<Void>> links = new LinkedHashMap<String, Link<Void>>();
-        private Map<String, Model<String>> linkText = new LinkedHashMap<String, Model<String>>();
-        private Map<String, Class<? extends Page>> pages = new LinkedHashMap<String, Class<? extends Page>>();
+        private List<MenuLink> links = new ArrayList<MenuLink>();
 
 
         /**
@@ -87,26 +98,22 @@ public abstract class NavigationPanel extends Panel {
             this.parameters = parameters;
         }
 
-        public Builder addMenuItem(String lnkText, final Class<? extends Page> page, String fontAwesome) {
-            Link<Void> link = new Link<Void>("link") {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public void onClick() {
-                    try {
-                        Constructor<? extends Page> constructor = page.getDeclaredConstructor(parameters.getClass());
-                        setResponsePage(constructor.newInstance(parameters));
-                    } catch (Exception e) {
-                        String msg = "Error Loading Navigation";
-                        log.error(msg, e);
-                    }
-                }
-            };
-            linkText.put(fontAwesome, Model.of(lnkText));
-            links.put(fontAwesome, link);
-            pages.put(fontAwesome, page);
+        public Builder addMenuItem(Model<String> linkText, final Class<? extends Page> page, String fontAwesome,
+            Boolean hasSubMenu) {
+            MenuLink link = new MenuLink("link", linkText, page, fontAwesome, hasSubMenu, parameters);
+            links.add(link);
             return this;
         }
 
+        public Builder addSubMenuItem(Model<String> linkText, final Class<? extends Page> page, String fontAwesome) {
+            if (page != null) {
+                MenuLink link = new MenuLink("subLink", linkText, page, fontAwesome, false, parameters);
+                MenuLink menuLink = links.get(links.size() - 1);
+                menuLink.getSubMenuLink().add(link);
+            }
+            return this;
+        }
     }
+
+
 }
