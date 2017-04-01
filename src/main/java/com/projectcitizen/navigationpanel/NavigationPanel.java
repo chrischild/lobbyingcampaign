@@ -102,7 +102,7 @@ public abstract class NavigationPanel extends Panel {
          * 
          * @param linkText
          * @param linkPage
-         *            needs to be set to an empty implementation of webpage to accomodate the fact
+         *            needs to be set to an empty implementation of WebPage to accommodate the fact
          *            that the top menu item might have sub menus
          * @param fontAwesome
          * @param hasSubMenu
