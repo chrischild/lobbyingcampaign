@@ -24,7 +24,6 @@
 	<artifactId>projectcitizen</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-		<!-- TODO project name  -->
 	<name>ProjectCitizen</name>
 	<description></description>
 	<!--
@@ -170,6 +169,35 @@
 			</testResource>
 		</testResources>
 		<plugins>
+		<!-- Tomcat plugin -->  
+			<plugin>  
+				<groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.4.8</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat8x</containerId>
+                        <home>${env.CATALINA_HOME}</home>
+                    </container>
+                    <configuration>
+                        <type>existing</type>
+                        <home>${env.CATALINA_HOME}</home>
+                    </configuration>
+                    <deployables>
+                        <deployable>
+                            <groupId>com.projectcitizen</groupId>
+                            <artifactId>projectcitizen</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>/projectcitizen</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                    <deployer>
+                        <type>installed</type>
+                    </deployer>
+                </configuration>
+			</plugin>
 			<plugin>
 				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
