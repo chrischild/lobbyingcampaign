@@ -32,15 +32,17 @@ public class MenuLink extends Link<Void> {
     private PageParameters parameters;
     private List<MenuLink> subMenuLink = new ArrayList<MenuLink>();
 
-    public MenuLink(String id, Model<String> linkText, final Class<? extends Page> page, String fontAwesome,
+    public MenuLink(String id, Model<String> linkText, final Class<? extends Page> linkPage, String fontAwesome,
         Boolean hasSubMenu, PageParameters parameters) {
         super(id);
 
-        this.setLinkText(linkText);
-        this.setLinkPage(page);
-        this.setFontAwesome(fontAwesome);
-        this.setHasSubMenu(hasSubMenu);
-        this.setParameters(parameters);
+        this.linkText = linkText;
+        this.fontAwesome = fontAwesome;
+        this.hasSubMenu = hasSubMenu;
+        this.parameters = parameters;
+        if (linkPage != null) {
+            this.linkPage = linkPage;
+        }
     }
 
     /*
@@ -56,6 +58,7 @@ public class MenuLink extends Link<Void> {
                 setResponsePage(constructor.newInstance(getParameters()));
             }
         } catch (Exception e) {
+            //get from property file
             String msg = "Error Loading Navigation";
             log.error(msg, e);
         }

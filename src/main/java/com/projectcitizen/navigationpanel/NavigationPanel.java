@@ -50,9 +50,13 @@ public abstract class NavigationPanel extends Panel {
         MenuItem menuItem;
 
         for (MenuLink link : builder.links) {
-            boolean mainItemActive = link.getLinkPage().equals(builder.activePage.getClass());
-            boolean subItemActive = false;
 
+            boolean mainItemActive = false;
+
+            if (link.getLinkPage() != null) {
+                mainItemActive = link.getLinkPage().equals(builder.activePage.getClass());
+            }
+            boolean subItemActive = false;
 
             for (MenuLink subLink : link.getSubMenuLink()) {
                 subItemActive = subLink.getLinkPage().equals(builder.activePage.getClass());

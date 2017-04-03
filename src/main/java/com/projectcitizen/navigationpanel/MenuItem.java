@@ -61,6 +61,7 @@ public class MenuItem extends Panel {
      * @param subMenuItems
      */
     public MenuItem(String id, MenuLink link, boolean isActive, String fontAwesome, Model<String> linkText,
+        // TODO add fa fa-right icon when sub menu exists
         List<SubMenuItem> subMenuItems) {
         super(id);
 
@@ -74,20 +75,18 @@ public class MenuItem extends Panel {
         WebMarkupContainer spanMarkup = new WebMarkupContainer("span");
         spanMarkup.add(new Label("linkText", Model.of(linkText)));
         link.add(spanMarkup);
-
         add(link);
-        
 
         RepeatingView subItems = new RepeatingView("subItems");
         for (SubMenuItem subItem : subMenuItems) {
             subItems.add(subItem);
         }
-        
+
         WebMarkupContainer ulMarkup = new WebMarkupContainer("ul");
-        if(subItems.size() != 0) {
+        if (subItems.size() != 0) {
             ulMarkup.add(new AttributeAppender("class", Model.of("treeview-menu")));
         }
-        
+
         ulMarkup.add(subItems);
         add(ulMarkup);
 
