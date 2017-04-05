@@ -43,6 +43,7 @@
 	<properties>
 		<wicket.version>7.6.0</wicket.version>
 		<wicket-bootstrap.version>0.10.7</wicket-bootstrap.version>
+		<google.version>1.22.0</google.version>
 		<postgres.version>42.0.0</postgres.version>
 		<hibernate.version>5.2.9.Final</hibernate.version>
 		<guice.version>4.1.0</guice.version>
@@ -80,6 +81,22 @@
 		    <groupId>de.agilecoders.wicket</groupId>
 		    <artifactId>wicket-bootstrap-extensions</artifactId>
 		    <version>${wicket-bootstrap.version}</version>
+		</dependency>
+		<!-- GOOGLE OAUTH -->
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client</artifactId>
+			<version>${google.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client-servlet</artifactId>
+			<version>${google.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client-java6</artifactId>
+			<version>${google.version}</version>
 		</dependency>
 		<!-- OPTIONAL DEPENDENCY
 		<dependency>
@@ -204,8 +221,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
