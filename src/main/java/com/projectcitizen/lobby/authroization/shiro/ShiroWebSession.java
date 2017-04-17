@@ -9,7 +9,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
 
 import com.google.inject.Inject;
-import com.projectcitizen.security.roles.UserRoles;
+import com.projectcitizen.lobby.authroization.UserRoles;
 
 public class ShiroWebSession extends AuthenticatedWebSession {
 

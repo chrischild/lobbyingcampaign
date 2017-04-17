@@ -15,18 +15,50 @@
 
 		The value might be either "development" (reloading when templates change) or 
 		"deployment". If no configuration is found, "development" is the default. -->
+		
+	 <listener>
+        <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+    </listener>
 
+    <!-- filter>
+        <filter-name>WicketApplication</filter-name>
+        <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+        <init-param>
+            <param-name>applicationClassName</param-name>
+            <param-value>com.nikolas.wicketsecurity.ui.app.WicketSecurityApp</param-value>
+        </init-param>
+    </filter-->
+
+    <filter>
+        <filter-name>ShiroFilter</filter-name>
+        <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ShiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+	<listener>
+		<listener-class>com.projectcitizen.servletlistener.ServletContextListener</listener-class>
+	</listener>
+	
 	<filter>
-		<filter-name>wicket.projectcitizen</filter-name>
-		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
-		<init-param>
-			<param-name>applicationClassName</param-name>
-			<param-value>com.projectcitizen.application.WicketApplication</param-value>
-		</init-param>
+		<filter-name>guiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
 	</filter>
-
+	
 	<filter-mapping>
-		<filter-name>wicket.projectcitizen</filter-name>
+		<filter-name>guiceFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
 </web-app>

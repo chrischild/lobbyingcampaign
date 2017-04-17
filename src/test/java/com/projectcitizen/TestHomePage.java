@@ -4,7 +4,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.projectcitizen.application.WicketApplication;
+import com.projectcitizen.lobby.application.WicketApplication;
 import com.projectcitizen.pages.BasePage;
 
 /**
