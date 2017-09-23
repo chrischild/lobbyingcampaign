@@ -15,7 +15,6 @@ import javax.servlet.ServletContextEvent;
 import org.apache.shiro.config.Ini;
 import org.apache.shiro.guice.web.ShiroWebModule;
 import org.apache.shiro.session.mgt.SessionManager;
-import org.apache.shiro.util.SimpleByteSource;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
@@ -114,7 +113,7 @@ public class ServletContextListener extends GuiceServletContextListener {
         @Override
         protected void bindSessionManager(AnnotatedBindingBuilder<SessionManager> bind) {
             bind.to(DefaultWebSessionManager.class);
-            bindConstant().annotatedWith(Names.named("shiro.globalSessionTimeout")).to(6`0000L);
+            bindConstant().annotatedWith(Names.named("shiro.globalSessionTimeout")).to(630000L);
             bindConstant().annotatedWith(Names.named("shiro.sessionIdUrlRewritingEnabled")).to(false);
             bind(DefaultWebSessionManager.class);
             bind(Cookie.class).toInstance(new SimpleCookie("myCookie"));
