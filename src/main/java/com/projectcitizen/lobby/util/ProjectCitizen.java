@@ -6,7 +6,6 @@
 package com.projectcitizen.lobby.util;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.model.StringResourceModel;
 
 /**
  * @author Chris
@@ -19,7 +18,7 @@ public class ProjectCitizen {
      * @param navigationPanel
      */
     public static void getResource(String resourceKey, Component component) {
-        StringResourceModel model = new StringResourceModel(resourceKey, component, null);
+//        StringResourceModel model = new StringResourceModel(resourceKey, component, null);
     };
 
 }

@@ -1,15 +1,17 @@
 package com.projectcitizen.lobby.application;
 
-import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
-import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.guice.GuiceComponentInjector;
 import org.apache.wicket.markup.html.PackageResourceGuard;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.wicketstuff.shiro.annotation.AnnotationsShiroAuthorizationStrategy;
+import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
 
 import com.google.inject.Injector;
 import com.projectcitizen.lobby.application.pages.page.HomePage;
+import com.projectcitizen.lobby.application.pages.page.login.LoginPage;
+import com.projectcitizen.lobby.application.pages.page.unauthorized.UnauthorizedPage;
 import com.projectcitizen.lobby.application.pages.page.user.UserPage;
-import com.projectcitizen.lobby.authroization.shiro.ShiroWebSession;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
@@ -20,7 +22,7 @@ import de.agilecoders.wicket.core.settings.BootstrapSettings;
  * 
  * @see com.projectcitizen.Start#main(String[])
  */
-public class WicketApplication extends AuthenticatedWebApplication {
+public class WicketApplication extends WebApplication {
 
     /**
      * @see org.apache.wicket.Application#getHomePage()
@@ -38,6 +40,11 @@ public class WicketApplication extends AuthenticatedWebApplication {
         super.init();
 
         getMarkupSettings().setStripWicketTags(Boolean.TRUE);
+        
+        AnnotationsShiroAuthorizationStrategy authz = new AnnotationsShiroAuthorizationStrategy();
+        getSecuritySettings().setAuthorizationStrategy(authz);
+        getSecuritySettings().setUnauthorizedComponentInstantiationListener(
+            new ShiroUnauthorizedComponentListener(LoginPage.class, UnauthorizedPage.class, authz));
         get().getResourceSettings().setPackageResourceGuard(new PackageResourceGuard());
 
         Injector bootstrapInjector = (Injector) this.getServletContext().getAttribute(Injector.class.getName());
@@ -47,33 +54,12 @@ public class WicketApplication extends AuthenticatedWebApplication {
         configureBootstrap();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.wicket.authroles.authentication.AuthenticatedWebApplication#getSignInPageClass()
-     */
-    @Override
-    protected Class<? extends WebPage> getSignInPageClass() {
-        return null;
-        // return LoginPage.class;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.wicket.authroles.authentication.AuthenticatedWebApplication#getWebSessionClass()
-     */
-    @Override
-    protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
-        return ShiroWebSession.class;
-    }
-
     /**
      * configure pages
      */
     private void configureMountablePages() {
         mountPage("/user", UserPage.class);
-        // mountPage("/login", LoginPage.class);
+        mountPage("/login", LoginPage.class);
     }
 
     /**

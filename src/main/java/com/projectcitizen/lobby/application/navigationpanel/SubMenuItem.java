@@ -5,8 +5,6 @@
  */
 package com.projectcitizen.lobby.application.navigationpanel;
 
-import org.apache.wicket.model.Model;
-
 /**
  * @author Chris
  *
@@ -21,7 +19,7 @@ public class SubMenuItem extends MenuItem {
      * @param fontAwesome
      * @param linkText
      */
-    public SubMenuItem(String id, MenuLink subLink, Boolean isActive, String fontAwesome, Model<String> linkText) {
+    public SubMenuItem(String id, MenuLink subLink, Boolean isActive, String fontAwesome, String linkText) {
             super(id, subLink, isActive, fontAwesome, linkText);
     }
 

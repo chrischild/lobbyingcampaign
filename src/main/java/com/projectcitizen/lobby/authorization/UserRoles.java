@@ -3,15 +3,16 @@
  *
  * Copyright: Project Citizen
  */
-package com.projectcitizen.lobby.authroization;
+package com.projectcitizen.lobby.authorization;
 
 /**
+ * Enum representing db roles to match/compare against
  * @author Chris
  *
  */
 public enum UserRoles {
 
-    Admin("Admin"), User("User");
+    Admin("admin"), User("user");
 
     private String role;
 

@@ -3,7 +3,7 @@
  *
  * Copyright: Project Citizen
  */
-package com.projectcitizen.lobby.authroization.googleauth;
+package com.projectcitizen.lobby.authorization.googleauth;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -47,9 +47,9 @@ public class AuthorizeServlet extends HttpServlet {
         URI uri = null;
         try {
             uri = new URIBuilder().setScheme("https").setHost("accounts.google.com").setPath("/o/oauth2/v2/auth")
-                .setParameter("access_type", "offline").setParameter("client_id", CLIENT_ID).setParameter("response_type", "code")
-                .setParameter("scope", "openid email").setParameter("redirect_uri", REDIRECT_URL)
-                .setParameter("state", state).build();
+                .setParameter("access_type", "offline").setParameter("client_id", CLIENT_ID)
+                .setParameter("response_type", "code").setParameter("scope", "openid email")
+                .setParameter("redirect_uri", REDIRECT_URL).setParameter("state", state).build();
         } catch (URISyntaxException e) {
             System.err.println("Error building uri. Exception message: " + e.getMessage());
         }

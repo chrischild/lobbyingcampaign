@@ -31,7 +31,7 @@ import org.apache.wicket.model.Model;
 public class MenuItem extends Panel {
     private static final long serialVersionUID = 3512802589536861966L;
 
-    public MenuItem(String id, MenuLink link, boolean isActive, String fontAwesome, Model<String> linkText) {
+    public MenuItem(String id, MenuLink link, boolean isActive, String fontAwesome, String linkText) {
         super(id);
 
         this.setOutputMarkupId(false);
@@ -60,7 +60,7 @@ public class MenuItem extends Panel {
      * @param linkText
      * @param subMenuItems
      */
-    public MenuItem(String id, MenuLink link, boolean isActive, String fontAwesome, Model<String> linkText,
+    public MenuItem(String id, MenuLink link, boolean isActive, String fontAwesome, String linkText,
         // TODO add fa fa-right icon when sub menu exists
         List<SubMenuItem> subMenuItems) {
         super(id);

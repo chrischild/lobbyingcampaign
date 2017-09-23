@@ -16,13 +16,12 @@ import com.projectcitizen.lobby.application.css.AdmintLTECSS;
 import com.projectcitizen.lobby.application.css.MetisMenu;
 import com.projectcitizen.lobby.application.js.AdminLTEJS;
 import com.projectcitizen.lobby.application.js.SlimScrollJS;
-import com.projectcitizen.lobby.application.navigationpanel.SideNavigationPanel;
 import com.projectcitizen.lobby.application.navigationpanel.NavigationPanel.Builder;
+import com.projectcitizen.lobby.application.navigationpanel.SideNavigationPanel;
 import com.projectcitizen.lobby.application.pages.page.HomePage;
 import com.projectcitizen.lobby.application.pages.page.user.UserPage;
 
 import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.MetaTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.MobileViewportMetaTag;
@@ -30,15 +29,13 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeCs
 
 public class BasePage extends WebPage {
     private static final long serialVersionUID = -6979951561493371929L;
-    private static final String GOOGLE_OAUTH_URL = "https://apis.google.com/js/platform.js";
 
+    
+    
     public BasePage(final PageParameters parameters) {
         super(parameters);
 
         addMetaTags();
-
-        getSession().getAttribute("name");
-        getSession().getAttribute("email");
 
         add(createNavigation(parameters));
     }
@@ -54,7 +51,6 @@ public class BasePage extends WebPage {
 
         response.render(JavaScriptReferenceHeaderItem.forReference(AdminLTEJS.INSTANCE));
         response.render(JavaScriptReferenceHeaderItem.forReference(SlimScrollJS.INSTANCE));
-        response.render(JavaScriptReferenceHeaderItem.forUrl(GOOGLE_OAUTH_URL));
     }
 
     /**
@@ -64,7 +60,6 @@ public class BasePage extends WebPage {
         add(new HtmlTag("html"));
 
         add(new MobileViewportMetaTag("viewport"));
-        add(new ChromeFrameMetaTag("chrome-frame"));
         add(new MetaTag("description", Model.of("description"), Model.of("Project Citizen")));
         add(new MetaTag("author", Model.of("author"), Model.of("Chris Child")));
     }

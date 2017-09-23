@@ -6,13 +6,18 @@
 package com.projectcitizen.lobby.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * @author Chris
@@ -24,15 +29,16 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 1313210724030743149L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer roleId;
     private String role;
+    private Set<User> users = new HashSet<User>(0);
 
     /**
      * @return the roleId
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Integer getRoleId() {
         return roleId;
     }
@@ -60,5 +66,21 @@ public class Role implements Serializable {
         this.role = role;
     }
 
+    /**
+     * @return the users
+     */
+    @ElementCollection(targetClass = User.class)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    /**
+     * @param users
+     *            the users to set
+     */
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
 }

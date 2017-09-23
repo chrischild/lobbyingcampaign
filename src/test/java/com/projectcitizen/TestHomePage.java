@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.projectcitizen.lobby.application.WicketApplication;
-import com.projectcitizen.pages.BasePage;
+import com.projectcitizen.lobby.application.pages.BasePage;
 
 /**
  * Simple test using the WicketTester

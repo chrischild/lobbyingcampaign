@@ -4,9 +4,12 @@
 package com.projectcitizen.lobby.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,14 +25,11 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "user", schema = "projectcitizen")
+@Table(name = "users", schema = "projectcitizen")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 6911721115889614270L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer userId;
     private String username;
     private String password;
@@ -40,11 +40,14 @@ public class User implements Serializable {
     private String token;
     // private String interests;
     private Boolean alerts;
-    private List<Role> roles;
+    private Set<Role> roles = new HashSet<Role>(0);
 
     /**
      * @return the userId
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Integer getUserId() {
         return userId;
     }
@@ -202,14 +205,11 @@ public class User implements Serializable {
     /**
      * @return the roles
      */
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "userroles", joinColumns = {
-            @JoinColumn(name = "id") },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "id")
-            }
-    )
-    public List<Role> getRoles() {
+    @ElementCollection(targetClass = Role.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "userroles", schema = "projectcitizen", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = {
+            @JoinColumn(name = "roleid") })
+    public Set<Role> getRoles() {
         return roles;
     }
 
@@ -217,7 +217,7 @@ public class User implements Serializable {
      * @param roles
      *            the roles to set
      */
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

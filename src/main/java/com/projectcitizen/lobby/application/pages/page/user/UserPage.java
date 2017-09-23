@@ -16,8 +16,8 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.google.inject.Inject;
 import com.projectcitizen.lobby.application.pages.BasePage;
+import com.projectcitizen.lobby.authorization.DBRealm;
 import com.projectcitizen.lobby.entities.User;
-import com.projectcitizen.lobby.entities.dao.UserDao;
 
 /**
  * @author Chris
@@ -27,8 +27,8 @@ public class UserPage extends BasePage {
 
     private static final long serialVersionUID = -5984038107446623205L;
 
-    @Inject
-    private UserDao userDao;
+//    @Inject
+//    private DBRealm securityService;
 
     public UserPage(PageParameters parameters) {
         super(parameters);
@@ -46,10 +46,8 @@ public class UserPage extends BasePage {
             @Override
             protected void onSubmit() {
                 super.onSubmit();
-                User user = (User) getDefaultModelObject();
-                user.setSalt("blah");
-
-                userDao.insertUpdateUser(user);
+                
+//                securityService.createUser(getModelObject(), UserRoles.User.getRole());
             }
 
         };

@@ -3,13 +3,14 @@
  *
  * Copyright: Project Citizen
  */
-package com.projectcitizen.lobby.authroization.googleauth;
+package com.projectcitizen.lobby.authorization.googleauth;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -31,6 +32,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.projectcitizen.lobby.authorization.UserRoles;
+import com.projectcitizen.lobby.entities.Role;
 import com.projectcitizen.lobby.entities.User;
 import com.projectcitizen.lobby.entities.dao.UserDao;
 
@@ -82,6 +85,11 @@ public class AuthorizeCallbackServlet extends HttpServlet {
             user.setName((String) userDetailMap.get("name"));
             user.setEmail((String) userDetailMap.get("email"));
             user.setUsername(id);
+            
+            Role role = new Role();
+            role.setRole(UserRoles.User.getRole());
+            user.setRoles(Collections.singleton(role));
+            
             userDao.insertUpdateUser(user);
         }
 

@@ -25,7 +25,7 @@ public class MenuLink extends Link<Void> {
     private static final long serialVersionUID = -3214898407207719961L;
     private static final Logger log = LoggerFactory.getLogger(MenuLink.class);
 
-    private Model<String> linkText;
+    private String linkText;
     private Class<? extends Page> linkPage;
     private String fontAwesome;
     private Boolean hasSubMenu;
@@ -36,7 +36,7 @@ public class MenuLink extends Link<Void> {
         Boolean hasSubMenu, PageParameters parameters) {
         super(id);
 
-        this.linkText = linkText;
+        this.linkText = linkText.getObject().toString();
         this.fontAwesome = fontAwesome;
         this.hasSubMenu = hasSubMenu;
         this.parameters = parameters;
@@ -67,7 +67,7 @@ public class MenuLink extends Link<Void> {
     /**
      * @return the linkText
      */
-    public Model<String> getLinkText() {
+    public String getLinkText() {
         return linkText;
     }
 
@@ -75,7 +75,7 @@ public class MenuLink extends Link<Void> {
      * @param linkText
      *            the linkText to set
      */
-    public void setLinkText(Model<String> linkText) {
+    public void setLinkText(String linkText) {
         this.linkText = linkText;
     }
 

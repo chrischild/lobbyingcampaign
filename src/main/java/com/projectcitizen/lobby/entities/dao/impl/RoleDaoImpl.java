@@ -8,6 +8,8 @@ package com.projectcitizen.lobby.entities.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.projectcitizen.lobby.entities.Role;
 import com.projectcitizen.lobby.entities.dao.RoleDao;
 import com.projectcitizen.lobby.util.HibernateUtil;
@@ -36,10 +38,33 @@ public class RoleDaoImpl implements RoleDao {
 
         List<Role> roles = new ArrayList<Role>();
         
+        Session session = HibernateUtil.createSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        
         String hql = "FROM Role";
-        roles = HibernateUtil.createSessionFactory().getCurrentSession().createQuery(hql).list();
+        roles = session.createQuery(hql).list();
+        
+        session.getTransaction().commit();
+        session.close();
         
         return roles;
+    }
+
+    /* (non-Javadoc)
+     * @see com.projectcitizen.lobby.entities.dao.RoleDao#findRoleByName(java.lang.String)
+     */
+    @Override
+    public Role findRoleByName(String roleType) {
+        
+        Session session = HibernateUtil.createSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        
+        String hql = "FROM Role r where r.role = :role";
+        Role role = (Role) session.createQuery(hql).setParameter("role", roleType).getSingleResult();
+        
+        session.getTransaction().commit();
+        session.close();
+        return role;
     }
 
 }
