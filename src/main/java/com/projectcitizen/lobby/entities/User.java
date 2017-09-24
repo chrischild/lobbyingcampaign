@@ -207,8 +207,8 @@ public class User implements Serializable {
      */
     @ElementCollection(targetClass = Role.class)
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "userroles", schema = "projectcitizen", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = {
-            @JoinColumn(name = "roleid") })
+    @JoinTable(name = "userroles", schema = "projectcitizen", joinColumns = {
+            @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "roleid") })
     public Set<Role> getRoles() {
         return roles;
     }

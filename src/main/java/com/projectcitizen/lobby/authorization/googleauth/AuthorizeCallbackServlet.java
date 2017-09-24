@@ -77,7 +77,7 @@ public class AuthorizeCallbackServlet extends HttpServlet {
             + userDetailMap.get("email") + "; email_verified: " + userDetailMap.get("verified_email"));
 
         String id = (String) userDetailMap.get("id");
-        
+
         User user = new User();
         user = userDao.findUserByUsername(id);
 
@@ -85,11 +85,11 @@ public class AuthorizeCallbackServlet extends HttpServlet {
             user.setName((String) userDetailMap.get("name"));
             user.setEmail((String) userDetailMap.get("email"));
             user.setUsername(id);
-            
+
             Role role = new Role();
             role.setRole(UserRoles.User.getRole());
             user.setRoles(Collections.singleton(role));
-            
+
             userDao.insertUpdateUser(user);
         }
 

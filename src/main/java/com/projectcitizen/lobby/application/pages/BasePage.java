@@ -30,8 +30,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeCs
 public class BasePage extends WebPage {
     private static final long serialVersionUID = -6979951561493371929L;
 
-    
-    
+
     public BasePage(final PageParameters parameters) {
         super(parameters);
 

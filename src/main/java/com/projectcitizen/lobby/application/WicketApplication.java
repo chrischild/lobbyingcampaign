@@ -40,7 +40,7 @@ public class WicketApplication extends WebApplication {
         super.init();
 
         getMarkupSettings().setStripWicketTags(Boolean.TRUE);
-        
+
         AnnotationsShiroAuthorizationStrategy authz = new AnnotationsShiroAuthorizationStrategy();
         getSecuritySettings().setAuthorizationStrategy(authz);
         getSecuritySettings().setUnauthorizedComponentInstantiationListener(

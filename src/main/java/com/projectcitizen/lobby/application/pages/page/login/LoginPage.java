@@ -32,7 +32,7 @@ import com.projectcitizen.lobby.entities.User;
 public class LoginPage extends BasePage {
 
     private static final long serialVersionUID = -1052503951856431187L;
-    
+
     @Inject
     SecurityManager securityManager;
 
@@ -80,7 +80,7 @@ public class LoginPage extends BasePage {
         SecurityUtils.setSecurityManager(securityManager);
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        
+
         try {
             currentUser.login(token);
             return true;
@@ -93,7 +93,7 @@ public class LoginPage extends BasePage {
         } catch (final Exception ex) {
             error("Login failed");
         }
-        
+
         return false;
     }
 

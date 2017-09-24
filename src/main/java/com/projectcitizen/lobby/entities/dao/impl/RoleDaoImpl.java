@@ -37,31 +37,32 @@ public class RoleDaoImpl implements RoleDao {
     public List<Role> getAllRoles() {
 
         List<Role> roles = new ArrayList<Role>();
-        
+
         Session session = HibernateUtil.createSessionFactory().getCurrentSession();
         session.beginTransaction();
-        
+
         String hql = "FROM Role";
         roles = session.createQuery(hql).list();
-        
+
         session.getTransaction().commit();
         session.close();
-        
+
         return roles;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.projectcitizen.lobby.entities.dao.RoleDao#findRoleByName(java.lang.String)
      */
     @Override
     public Role findRoleByName(String roleType) {
-        
+
         Session session = HibernateUtil.createSessionFactory().getCurrentSession();
         session.beginTransaction();
-        
+
         String hql = "FROM Role r where r.role = :role";
         Role role = (Role) session.createQuery(hql).setParameter("role", roleType).getSingleResult();
-        
+
         session.getTransaction().commit();
         session.close();
         return role;

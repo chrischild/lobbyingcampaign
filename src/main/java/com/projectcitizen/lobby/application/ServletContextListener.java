@@ -12,7 +12,6 @@ import javax.inject.Singleton;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 
-import org.apache.shiro.config.Ini;
 import org.apache.shiro.guice.web.ShiroWebModule;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
@@ -26,14 +25,13 @@ import org.apache.wicket.protocol.http.WicketFilter;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Provides;
 import com.google.inject.binder.AnnotatedBindingBuilder;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
-import com.projectcitizen.lobby.authorization.DBRealm;
 import com.projectcitizen.lobby.authorization.googleauth.AuthorizeCallbackServlet;
 import com.projectcitizen.lobby.authorization.googleauth.AuthorizeServlet;
+import com.projectcitizen.lobby.authorization.shiro.DBRealm;
 
 
 /**
@@ -50,7 +48,8 @@ public class ServletContextListener extends GuiceServletContextListener {
      */
     @Override
     protected Injector getInjector() {
-        return Guice.createInjector(createServletModule(), new MyShiroWebModule(servletContext), ShiroWebModule.guiceFilterModule());
+        return Guice.createInjector(createServletModule(), new MyShiroWebModule(servletContext),
+            ShiroWebModule.guiceFilterModule());
     }
 
     @Override
@@ -105,11 +104,6 @@ public class ServletContextListener extends GuiceServletContextListener {
             addFilterChain("/**", AUTHC);
         }
 
-        @Provides
-        Ini loadShiroIni() {
-            return Ini.fromResourcePath("classpath:shiro.ini");
-        }
-        
         @Override
         protected void bindSessionManager(AnnotatedBindingBuilder<SessionManager> bind) {
             bind.to(DefaultWebSessionManager.class);
@@ -118,9 +112,12 @@ public class ServletContextListener extends GuiceServletContextListener {
             bind(DefaultWebSessionManager.class);
             bind(Cookie.class).toInstance(new SimpleCookie("myCookie"));
         }
-        
-        /* (non-Javadoc)
-         * @see org.apache.shiro.guice.web.ShiroWebModule#bindWebSecurityManager(com.google.inject.binder.AnnotatedBindingBuilder)
+
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.apache.shiro.guice.web.ShiroWebModule#bindWebSecurityManager(com.google.inject.binder
+         * .AnnotatedBindingBuilder)
          */
         @Override
         protected void bindWebSecurityManager(AnnotatedBindingBuilder<? super WebSecurityManager> bind) {

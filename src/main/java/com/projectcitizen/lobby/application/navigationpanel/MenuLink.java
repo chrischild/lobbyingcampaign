@@ -58,7 +58,7 @@ public class MenuLink extends Link<Void> {
                 setResponsePage(constructor.newInstance(getParameters()));
             }
         } catch (Exception e) {
-            //get from property file
+            // get from property file
             String msg = "Error Loading Navigation";
             log.error(msg, e);
         }

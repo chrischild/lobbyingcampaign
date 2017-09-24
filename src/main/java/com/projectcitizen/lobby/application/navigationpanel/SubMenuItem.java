@@ -12,7 +12,7 @@ package com.projectcitizen.lobby.application.navigationpanel;
 public class SubMenuItem extends MenuItem {
 
     private static final long serialVersionUID = -4581665618390213005L;
-    
+
     /**
      * @param id
      * @param subLink
@@ -20,7 +20,7 @@ public class SubMenuItem extends MenuItem {
      * @param linkText
      */
     public SubMenuItem(String id, MenuLink subLink, Boolean isActive, String fontAwesome, String linkText) {
-            super(id, subLink, isActive, fontAwesome, linkText);
+        super(id, subLink, isActive, fontAwesome, linkText);
     }
 
 }

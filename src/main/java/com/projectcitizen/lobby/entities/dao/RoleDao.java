@@ -20,6 +20,7 @@ public interface RoleDao {
 
     /**
      * Find Role by id
+     * 
      * @param id
      */
     Role findRole(Integer id);
@@ -28,11 +29,13 @@ public interface RoleDao {
      * Find all Roles
      */
     List<Role> getAllRoles();
-    
+
     /**
      * Find Role by name
-     * @param role to find
+     * 
+     * @param role
+     *            to find
      */
     Role findRoleByName(String role);
-    
+
 }

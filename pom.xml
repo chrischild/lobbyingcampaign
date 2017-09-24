@@ -41,15 +41,16 @@
 		</license>
 	</licenses>
 	<properties>
-		<wicket.version>7.6.0</wicket.version>
-		<wicket-bootstrap.version>0.10.7</wicket-bootstrap.version>
+		<wicket.version>8.0.0-M6</wicket.version>
+		<wicket-bootstrap.version>2.0.0-M6</wicket-bootstrap.version>
 		<google.version>1.22.0</google.version>
 		<googleapi.version>v2-rev125-1.22.0</googleapi.version>
+		<guice.version>4.1.0</guice.version>
+		<shiro.version>1.4.0</shiro.version>
+		<commons.version>1.9.3</commons.version>
 		<apache.version>4.5.3</apache.version>
 		<postgres.version>42.0.0</postgres.version>
 		<hibernate.version>5.2.9.Final</hibernate.version>
-		<guice.version>4.1.0</guice.version>
-		<shiro.version>1.3.2</shiro.version>
 		<jetty9.version>9.2.19.v20160908</jetty9.version>
 		<log4j.version>2.6.2</log4j.version>
 		<junit.version>4.12</junit.version>
@@ -85,6 +86,11 @@
 			<artifactId>wicketstuff-annotation</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.wicketstuff</groupId>
+			<artifactId>wicketstuff-shiro</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
 		<!-- WICKET-BOOTSTRAP DEPENDENCIES -->
 		<dependency>
 		    <groupId>de.agilecoders.wicket</groupId>
@@ -102,19 +108,56 @@
 			<artifactId>google-api-client</artifactId>
 			<version>${google.version}</version>
 		</dependency>
-		<!-- APACHE HTTPCLIENT -->
+		<!-- GUICE -->
+		<dependency>
+		    <groupId>com.google.inject.extensions</groupId>
+		    <artifactId>guice-servlet</artifactId>
+		    <version>${guice.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.inject.extensions</groupId>
+		    <artifactId>guice-persist</artifactId>
+		    <version>${guice.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.inject.extensions</groupId>
+		    <artifactId>guice-multibindings</artifactId>
+		    <version>${guice.version}</version>
+		</dependency>
+		<!-- SHIRO -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-guice</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<!-- APACHE -->
 		<dependency>
 		    <groupId>org.apache.httpcomponents</groupId>
 		    <artifactId>httpclient</artifactId>
 		    <version>${apache.version}</version>
 		</dependency>
-		<!-- OPTIONAL DEPENDENCY
+		<dependency>
+		    <groupId>commons-beanutils</groupId>
+		    <artifactId>commons-beanutils</artifactId>
+		    <version>${commons.version}</version>
+		</dependency>
+		<!-- OPTIONAL DEPENDENCY -->
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-extensions</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
-		-->
+		
 		<!-- POSTGRESQL DRIVER -->
 		<dependency>
 		    <groupId>org.postgresql</groupId>
@@ -127,28 +170,6 @@
 		    <artifactId>hibernate-core</artifactId>
 		    <version>${hibernate.version}</version>
 		</dependency>		
-		<!-- GUICE -->
-		<dependency>
-		    <groupId>com.google.inject</groupId>
-		    <artifactId>guice</artifactId>
-		    <version>${guice.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.inject.extensions</groupId>
-		    <artifactId>guice-servlet</artifactId>
-		    <version>${guice.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.inject.extensions</groupId>
-		    <artifactId>guice-persist</artifactId>
-		    <version>${guice.version}</version>
-		</dependency>
-		<!-- SHIRO -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-			<version>${shiro.version}</version>
-		</dependency>
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

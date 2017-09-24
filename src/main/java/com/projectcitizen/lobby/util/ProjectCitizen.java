@@ -12,13 +12,13 @@ import org.apache.wicket.Component;
  *
  */
 public class ProjectCitizen {
-    
+
     /**
      * @param string
      * @param navigationPanel
      */
     public static void getResource(String resourceKey, Component component) {
-//        StringResourceModel model = new StringResourceModel(resourceKey, component, null);
+        // StringResourceModel model = new StringResourceModel(resourceKey, component, null);
     };
 
 }

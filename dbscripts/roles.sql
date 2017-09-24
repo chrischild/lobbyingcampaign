@@ -13,3 +13,11 @@ WITH (
 );
 ALTER TABLE projectcitizen.roles
   OWNER TO postgres;
+
+INSERT INTO projectcitizen.roles(
+            id, role)
+    VALUES (1, 'admin');
+
+INSERT INTO projectcitizen.roles(
+            id, role)
+    VALUES (2, 'user');
