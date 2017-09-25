@@ -47,11 +47,20 @@ public class UserPage extends BasePage {
             @Override
             protected void onSubmit() {
                 super.onSubmit();
-
                 securityService.createUser(getModelObject(), UserRoles.User.getRole());
             }
-
         };
+
+        createFormFields(user, form);
+
+        add(form);
+    }
+
+    /**
+     * @param user
+     * @param form
+     */
+    private void createFormFields(User user, Form<User> form) {
 
         form.add(new TextField<String>("username", new PropertyModel<String>(user, "username"))
             .setRequired(Boolean.TRUE).setLabel(Model.of("Username")));
@@ -67,7 +76,5 @@ public class UserPage extends BasePage {
 
         form.add(new EmailTextField("email", new PropertyModel<String>(user, "email")).setRequired(Boolean.TRUE)
             .setLabel(Model.of("Email")));
-
-        add(form);
     }
 }

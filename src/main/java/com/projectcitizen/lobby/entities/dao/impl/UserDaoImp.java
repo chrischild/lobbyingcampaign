@@ -54,6 +54,7 @@ public class UserDaoImp implements UserDao {
      * @see com.projectcitizen.dao.UserDao#findUsers()
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<User> findUsers() {
 
         Session session = HibernateUtil.createSessionFactory().getCurrentSession();

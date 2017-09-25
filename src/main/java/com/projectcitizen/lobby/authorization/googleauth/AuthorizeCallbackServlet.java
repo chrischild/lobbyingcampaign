@@ -101,6 +101,7 @@ public class AuthorizeCallbackServlet extends HttpServlet {
         resp.sendRedirect(REDIRECT_URI);
     }
 
+    @SuppressWarnings("unchecked")
     private String obtainAccessToken(String codeParameter) throws IOException, ClientProtocolException {
         URI uri = null;
         try {
@@ -134,6 +135,7 @@ public class AuthorizeCallbackServlet extends HttpServlet {
         return accessToken;
     }
 
+    @SuppressWarnings("unchecked")
     private Map<String, Object> obtainUserInformation(String accessToken)
         throws IOException, ClientProtocolException, JsonParseException, JsonMappingException {
         URI uri = null;

@@ -34,6 +34,7 @@ public class RoleDaoImpl implements RoleDao {
      * @see com.projectcitizen.lobby.entities.dao.RoleDao#getAllRoles()
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<Role> getAllRoles() {
 
         List<Role> roles = new ArrayList<Role>();

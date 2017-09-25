@@ -59,9 +59,18 @@ public class LoginPage extends BasePage {
                     setResponsePage(HomePage.class);
                 }
             }
-
         };
 
+        createFormFields(model, loginForm);
+
+        add(loginForm);
+    }
+
+    /**
+     * @param model
+     * @param loginForm
+     */
+    private void createFormFields(Model<User> model, Form<User> loginForm) {
         loginForm.add(new TextField<String>("username", new PropertyModel<String>(model, "username")));
 
         loginForm.add(new PasswordTextField("password", new PropertyModel<String>(model, "password")));
@@ -69,14 +78,12 @@ public class LoginPage extends BasePage {
         Button loginButton = new Button("login");
         loginForm.setDefaultButton(loginButton);
         loginForm.add(loginButton);
-
-        add(loginForm);
     }
 
     /**
      * @return
      */
-    protected boolean login(User user) {
+    private boolean login(User user) {
         SecurityUtils.setSecurityManager(securityManager);
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
