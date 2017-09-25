@@ -26,6 +26,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UnknownAccountException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -33,8 +35,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.projectcitizen.lobby.authorization.UserRoles;
+import com.projectcitizen.lobby.authorization.shiro.google.GoogleToken;
 import com.projectcitizen.lobby.entities.Role;
 import com.projectcitizen.lobby.entities.User;
+import com.projectcitizen.lobby.entities.dao.RoleDao;
 import com.projectcitizen.lobby.entities.dao.UserDao;
 
 /**
@@ -47,10 +51,12 @@ public class AuthorizeCallbackServlet extends HttpServlet {
 
     private static final long serialVersionUID = 751294421018368626L;
     private static final String CLIENT_SECRET = "BmhiS6acMetmdki1TbdwozEf";
-    private static final String REDIRECT_URI = "http://localhost:8080/";
+    private static final String REDIRECT_URI = "/";
 
     @Inject
     private UserDao userDao;
+    @Inject
+    private RoleDao roleDao;
 
     /*
      * (non-Javadoc)
@@ -81,24 +87,38 @@ public class AuthorizeCallbackServlet extends HttpServlet {
         User user = new User();
         user = userDao.findUserByUsername(id);
 
-        if (user.getUsername() == null) {
+        if (null == user) {
+            user = new User();
             user.setName((String) userDetailMap.get("name"));
             user.setEmail((String) userDetailMap.get("email"));
             user.setUsername(id);
 
-            Role role = new Role();
-            role.setRole(UserRoles.User.getRole());
+            Role role = roleDao.findRoleByName(UserRoles.User.getRole());
             user.setRoles(Collections.singleton(role));
 
             userDao.insertUpdateUser(user);
         }
 
-        // 6. Authenticate the user
-        req.getSession().setAttribute("email", userDetailMap.get("email"));
-        req.getSession().setAttribute("name", userDetailMap.get("name"));
-        req.getSession().setAttribute("isEmailVerified", userDetailMap.get("verified_email"));
+        boolean authResult = login(user);
+        
+        if(authResult) {
+            resp.sendRedirect(REDIRECT_URI);
+        }
+    }
 
-        resp.sendRedirect(REDIRECT_URI);
+    /**
+     * @param user
+     */
+    private boolean login(User user) {
+        GoogleToken token = new GoogleToken(user.getUsername());
+        
+        try {
+            SecurityUtils.getSubject().login(token);
+            return true;
+        } catch (final UnknownAccountException uae) {
+//            error("There is no account with that username.");
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")

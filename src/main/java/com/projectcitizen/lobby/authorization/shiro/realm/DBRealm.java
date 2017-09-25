@@ -3,7 +3,7 @@
  *
  * Copyright: Project Citizen
  */
-package com.projectcitizen.lobby.authorization.shiro;
+package com.projectcitizen.lobby.authorization.shiro.realm;
 
 import java.util.Collection;
 import java.util.Collections;

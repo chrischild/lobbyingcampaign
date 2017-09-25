@@ -7,4 +7,4 @@
  * @author Chris
  *
  */
-package com.projectcitizen.lobby.authorization.shiro.token;
+package com.projectcitizen.lobby.authorization.shiro.google;
