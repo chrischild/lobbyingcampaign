@@ -12,10 +12,12 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
+import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -52,6 +54,7 @@ public class LoginPage extends BasePage {
              */
             @Override
             protected void onSubmit() {
+                //TODO Look at why password going through url
                 super.onSubmit();
 
                 boolean authResult = login((User) getDefaultModelObject());
@@ -60,10 +63,18 @@ public class LoginPage extends BasePage {
                 }
             }
         };
+        
+        Form<String> googleForm = new Form<String>("googleForm") {
+
+            private static final long serialVersionUID = 1L;
+
+        };
 
         createFormFields(model, loginForm);
+        createGoogleLogin(model, googleForm);
 
         add(loginForm);
+        add(googleForm);
     }
 
     /**
@@ -76,10 +87,34 @@ public class LoginPage extends BasePage {
         loginForm.add(new PasswordTextField("password", new PropertyModel<String>(model, "password")));
 
         Button loginButton = new Button("login");
+        
         loginForm.setDefaultButton(loginButton);
         loginForm.add(loginButton);
     }
 
+    /**
+     * @param model
+     * @param googleForm
+     */
+    private void createGoogleLogin(Model<User> model, Form<String> googleForm) {
+
+        Button googleLoginButton = new Button("googleLogin") {
+            
+            private static final long serialVersionUID = 1L;
+            
+            /* (non-Javadoc)
+             * @see org.apache.wicket.markup.html.form.Button#onSubmit()
+             */
+            @Override
+            public void onSubmit() {
+                super.onSubmit();
+                throw new RestartResponseAtInterceptPageException(new RedirectPage("/"));
+            }
+        };
+        
+        googleForm.add(googleLoginButton);
+    }
+    
     /**
      * @return
      */
