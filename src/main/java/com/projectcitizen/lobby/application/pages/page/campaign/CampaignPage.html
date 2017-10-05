@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+	</head>
+	<body>
+		<wicket:extend>
+			<div id="hd">
+				<section class="col-lg-6">
+					<form method="get" wicket:id="campaignForm">
+						<h3>
+							<wicket:message key="campaign.page.title">[campaign.page.title]</wicket:message>
+						</h3>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="goal">
+								<wicket:message key="campaign.goal.label">[campaign.goal.label]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="number" wicket:id="goal" />
+						</div>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="tags">
+								<wicket:message key="campaign.tags.label">[campaign.tags.label]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="text" wicket:id="tags" />
+						</div>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="cause">
+								<wicket:message key="campaign.cause.label">[campaign.cause.label]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="text" wicket:id="cause" />
+						</div>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="donationLevel">
+								<wicket:message key="campaign.donationLevel.label">[campaign.donationLevel.label]</wicket:message>
+							</label>
+							<input class="col-lg-6" type="number" wicket:id="donationLevel" />
+						</div>
+						<div class="col-lg-12">
+							<label class="col-lg-12" wicket:for="goalMet">
+								<wicket:message key="campaign.goalMet.label">[campaign.goalMet.label]</wicket:message>
+							</label>
+							<div class="col-lg-12" wicket:id="goalMet">
+								<label>
+									<wicket:message key="campaign.yes.label">[campaign.yes.label]</wicket:message>
+								</label>
+								<input type="radio" wicket:id="goalMetYes">
+								<label>
+									<wicket:message key="campaign.no.label">[campaign.no.label]</wicket:message>
+								</label>
+								<input type="radio" wicket:id="goalMetNo">
+								
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+		</wicket:extend>
+	</body>
+</html>
