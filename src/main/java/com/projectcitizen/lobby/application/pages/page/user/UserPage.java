@@ -17,7 +17,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import com.google.inject.Inject;
 import com.projectcitizen.lobby.application.pages.BasePage;
 import com.projectcitizen.lobby.authorization.UserRoles;
-import com.projectcitizen.lobby.authorization.shiro.DBRealm;
+import com.projectcitizen.lobby.authorization.shiro.realm.DBRealm;
 import com.projectcitizen.lobby.entities.User;
 
 /**
