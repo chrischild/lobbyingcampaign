@@ -19,6 +19,7 @@ import com.projectcitizen.lobby.application.js.SlimScrollJS;
 import com.projectcitizen.lobby.application.navigationpanel.NavigationPanel.Builder;
 import com.projectcitizen.lobby.application.navigationpanel.SideNavigationPanel;
 import com.projectcitizen.lobby.application.pages.page.HomePage;
+import com.projectcitizen.lobby.application.pages.page.campaign.CampaignPage;
 import com.projectcitizen.lobby.application.pages.page.user.UserPage;
 
 import de.agilecoders.wicket.core.Bootstrap;
@@ -71,7 +72,8 @@ public class BasePage extends WebPage {
         Builder builder = new Builder("navigation", getPage(), parameters);
         builder = builder.addMenuItem(Model.of("Home"), HomePage.class, "fa fa-home", false)
             .addMenuItem(Model.of("User"), null, "fa fa-user", true)
-            .addSubMenuItem(Model.of("Add User"), UserPage.class, "fa fa-user-plus");
+            .addSubMenuItem(Model.of("Add User"), UserPage.class, "fa fa-user-plus")
+            .addMenuItem(Model.of("Campaign"), CampaignPage.class, "fa fa-group", false);
         return new SideNavigationPanel(builder, getPage());
     }
 
