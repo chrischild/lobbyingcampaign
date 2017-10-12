@@ -54,7 +54,7 @@ public class LoginPage extends BasePage {
              */
             @Override
             protected void onSubmit() {
-                //TODO Look at why password going through url
+                //FIXME Look at why password going through url
                 super.onSubmit();
 
                 boolean authResult = login((User) getDefaultModelObject());

@@ -34,21 +34,10 @@
 							</label>
 							<input class="col-lg-6" type="number" wicket:id="donationLevel" />
 						</div>
-						<div class="col-lg-12">
-							<label class="col-lg-12" wicket:for="goalMet">
-								<wicket:message key="campaign.goalMet.label">[campaign.goalMet.label]</wicket:message>
-							</label>
-							<div class="col-lg-12" wicket:id="goalMet">
-								<label>
-									<wicket:message key="campaign.yes.label">[campaign.yes.label]</wicket:message>
-								</label>
-								<input type="radio" wicket:id="goalMetYes">
-								<label>
-									<wicket:message key="campaign.no.label">[campaign.no.label]</wicket:message>
-								</label>
-								<input type="radio" wicket:id="goalMetNo">
-								
-							</div>
+						<div class="footer">
+							<button class="btn btn-md btn-info" value="Add Campaign" wicket:id="addCampaign">
+								<wicket:message key="button.add.label">[button.add.label]</wicket:message>
+							</button>
 						</div>
 					</form>
 				</section>

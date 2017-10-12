@@ -8,22 +8,24 @@
 				<section class="col-lg-6">
 					<form method="get" wicket:id="loginForm">
 						<h3>
-							<wicket:message key="login.page.title">[title]</wicket:message>
+							<wicket:message key="login.page.title">[login.page.title]</wicket:message>
 						</h3>
 						<div class="col-lg-12">
 							<label class="col-lg-12" wicket:for="username">
-								<wicket:message key="login.username.label">[username]</wicket:message>
+								<wicket:message key="login.username.label">[login.username.label]</wicket:message>
 							</label>
 							<input class="col-lg-6" type="text" wicket:id="username" />
 						</div>
 						<div class="col-lg-12">
 							<label class="col-lg-12" wicket:for="password">
-								<wicket:message key="login.password.label">[password]</wicket:message>
+								<wicket:message key="login.password.label">[login.password.label]</wicket:message>
 							</label>
 							<input class="col-lg-6" type="password" wicket:id="password" />
 						</div>
 						<div class="col-lg-12">
-							<button class="btn btn-md btn-info" wicket:id="login">Login</button>
+							<button class="btn btn-md btn-info" wicket:id="login">
+								<wicket:message key="button.login.label">[button.login.label]</wicket:message>
+							</button>
 						</div>
 					</form>
 					<div class="col-lg-12"></div>

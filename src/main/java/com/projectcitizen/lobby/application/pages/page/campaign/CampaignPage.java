@@ -7,15 +7,16 @@ package com.projectcitizen.lobby.application.pages.page.campaign;
 
 import java.math.BigDecimal;
 
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
-import org.apache.wicket.markup.html.form.Radio;
-import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import com.google.inject.Inject;
+import com.projectcitizen.lobby.application.dao.CampaignDao;
 import com.projectcitizen.lobby.application.pages.BasePage;
 import com.projectcitizen.lobby.entities.Campaign;
 
@@ -26,6 +27,9 @@ import com.projectcitizen.lobby.entities.Campaign;
 public class CampaignPage extends BasePage {
 
     private static final long serialVersionUID = -6311002837515184469L;
+
+    @Inject
+    private CampaignDao campaignDao;
 
     /**
      * @param parameters
@@ -70,25 +74,36 @@ public class CampaignPage extends BasePage {
 
         campaignForm.add(new NumberTextField<BigDecimal>("donationLevel", new PropertyModel<>(model, "donationLevel")));
 
-        campaignForm.add(createGoalMet("goalMet", model));
+        campaignForm.add(createSubmitButton("addCampaign", model));
+
     }
 
     /**
+     * @param pageModel
      * @param markupId
-     * @param model
      * @return
      */
-    private RadioGroup<Boolean> createGoalMet(String markupId, Model<Campaign> model) {
+    private Button createSubmitButton(String markupId, Model<Campaign> pageModel) {
 
-        RadioGroup<Boolean> goalGroup = new RadioGroup<>(markupId, new PropertyModel<>(model, "goalMet"));
+        Button submitButton = new Button(markupId) {
 
-        Radio<Boolean> goalYes = new Radio<Boolean>(markupId + "Yes", Model.of(Boolean.TRUE));
-        goalGroup.add(goalYes);
+            private static final long serialVersionUID = 1L;
 
-        Radio<Boolean> goalNo = new Radio<Boolean>(markupId + "No", Model.of(Boolean.FALSE));
-        goalGroup.add(goalNo);
+            /*
+             * (non-Javadoc)
+             * @see org.apache.wicket.markup.html.form.Button#onSubmit()
+             */
+            @Override
+            public void onSubmit() {
+                super.onSubmit();
 
-        return goalGroup;
+                Campaign newCampaign = pageModel.getObject();
+                newCampaign.setDonationLevel(new BigDecimal("0.00"));
+
+                campaignDao.insertUpdateCampaign(newCampaign);
+            }
+
+        };
+        return submitButton;
     }
-
 }
