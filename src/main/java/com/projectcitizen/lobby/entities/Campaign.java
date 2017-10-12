@@ -53,6 +53,7 @@ public class Campaign implements Serializable {
     /**
      * @return the goal
      */
+    @Column(name = "goal")
     public BigDecimal getGoal() {
         return goal;
     }
@@ -61,7 +62,6 @@ public class Campaign implements Serializable {
      * @param goal
      *            the goal to set
      */
-    @Column(name = "goal")
     public void setGoal(BigDecimal goal) {
         this.goal = goal;
     }
@@ -69,6 +69,7 @@ public class Campaign implements Serializable {
     /**
      * @return the tags
      */
+    @Column(name = "tags")
     public String getTags() {
         return tags;
     }
@@ -77,7 +78,6 @@ public class Campaign implements Serializable {
      * @param tags
      *            the tags to set
      */
-    @Column(name = "tags")
     public void setTags(String tags) {
         this.tags = tags;
     }
@@ -85,6 +85,7 @@ public class Campaign implements Serializable {
     /**
      * @return the cause
      */
+    @Column(name = "cause")
     public String getCause() {
         return cause;
     }
@@ -93,7 +94,6 @@ public class Campaign implements Serializable {
      * @param cause
      *            the cause to set
      */
-    @Column(name = "cause")
     public void setCause(String cause) {
         this.cause = cause;
     }
@@ -101,6 +101,7 @@ public class Campaign implements Serializable {
     /**
      * @return the currentDonations
      */
+    @Column(name = "donationLevel")
     public BigDecimal getDonationLevel() {
         return donationLevel;
     }
@@ -109,7 +110,6 @@ public class Campaign implements Serializable {
      * @param currentDonations
      *            the currentDonations to set
      */
-    @Column(name = "donation_level")
     public void setDonationLevel(BigDecimal currentDonations) {
         this.donationLevel = currentDonations;
     }
@@ -117,6 +117,7 @@ public class Campaign implements Serializable {
     /**
      * @return is the goalMet
      */
+    @Transient
     public boolean isGoalMet() {
         return goalMet;
     }
@@ -125,7 +126,6 @@ public class Campaign implements Serializable {
      * @param goalMet
      *            set goalMet
      */
-    @Transient
     public void setGoalMet(boolean goalMet) {
         this.goalMet = goalMet;
     }

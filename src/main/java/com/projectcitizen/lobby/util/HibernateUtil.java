@@ -24,6 +24,7 @@ public class HibernateUtil {
         Configuration configuration = new Configuration();
         configuration.configure().addAnnotatedClass(com.projectcitizen.lobby.entities.User.class);
         configuration.configure().addAnnotatedClass(com.projectcitizen.lobby.entities.Role.class);
+        configuration.configure().addAnnotatedClass(com.projectcitizen.lobby.entities.Campaign.class);
 
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);

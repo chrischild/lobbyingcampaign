@@ -30,10 +30,9 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 6911721115889614270L;
 
-    private Integer userId;
+    private long userId;
     private String username;
     private String password;
-    private String salt;
     private String name;
     private String address;
     private String email;
@@ -41,6 +40,7 @@ public class User implements Serializable {
     // private String interests;
     private Boolean alerts;
     private Set<Role> roles = new HashSet<Role>(0);
+    private Set<Campaign> campaigns = new HashSet<Campaign>(0);
 
     /**
      * @return the userId
@@ -48,7 +48,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer getUserId() {
+    public long getUserId() {
         return userId;
     }
 
@@ -56,7 +56,7 @@ public class User implements Serializable {
      * @param userId
      *            the userId to set
      */
-    public void setUserId(Integer userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -90,21 +90,6 @@ public class User implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * @return the salt
-     */
-    public String getSalt() {
-        return salt;
-    }
-
-    /**
-     * @param salt
-     *            the salt to set
-     */
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     /**
@@ -205,9 +190,10 @@ public class User implements Serializable {
     /**
      * @return the roles
      */
+    //FIXME change eager to lazy and figure out error
     @ElementCollection(targetClass = Role.class)
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "userroles", schema = "projectcitizen", joinColumns = {
+    @JoinTable(name = "usersroles", schema = "projectcitizen", joinColumns = {
             @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "roleid") })
     public Set<Role> getRoles() {
         return roles;
@@ -219,6 +205,25 @@ public class User implements Serializable {
      */
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    /**
+     * @return the campaigns
+     */
+    //FIXME change eager to lazy and figure out error
+    @ElementCollection(targetClass = Campaign.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "userscampaigns", schema = "projectcitizen", joinColumns = {
+            @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "campaignid") })
+    public Set<Campaign> getCampaigns() {
+        return campaigns;
+    }
+
+    /**
+     * @param campaigns the campaigns to set
+     */
+    public void setCampaigns(Set<Campaign> campaigns) {
+        this.campaigns = campaigns;
     }
 
 }
